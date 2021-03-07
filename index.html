@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <link rel = 'stylesheet' href = 'style.css' />
+<head>
+<title> Amicable Numbers </title>
+</head>
+
+<body>
+    <h1> Amicable Numbers </h1>
+    <form method ="get">
+        Enter a Number : <input type="text" id = "number">
+        Enter a Second Number : <input type="text" id = "number2">
+        <input type ="Button" value = "Submit"
+         onclick="checkAmicable()">
+ 
+    </form>
+
+    <script = javascript>
+        function checkAmicable() {
+            var number = document.getElementById("number").value
+            var number2 = document.getElementById("number2").value
+
+            numArr1 = getFactors(number)
+            numArr2 = getFactors(number2)
+            //printFactors(numArr1)
+            //printFactors(numArr2)
+            numArr1.sort(function(a, b) {
+                return a - b;});
+            numArr2.sort(function(a, b) {
+                return a - b;});
+
+            alert("Factors of first number: " + numArr1+ "\n" + 
+                "Factors of second number: " + numArr2)
+
+            let sum = (acc, curr) => acc+curr
+            num1Sum = numArr1.reduce(sum)
+            num2Sum = numArr2.reduce(sum)
+
+            if (num1Sum == number2 && num2Sum == number){
+                document.getElementById("result").innerText = number + 
+                    " and " + number2 + " are amicable"
+            }
+            else {
+                document.getElementById("result").innerText = number + 
+                    " and " + number2 + " are not amicable"
+                }
+        }
+
+        function getFactors(number){
+            factorsArray = new Array()
+            for (var i = 0; i <= Math.sqrt(number); i++){ //using sqrt because every factor 
+                if (isFactor(i, number))  {        // has a pair before so it saves time
+                    factorsArray.push(i)
+                    if (i != 1)
+                        factorsArray.push(number / i)  // adds the factor that 
+                }                                   //multiplies to number w/ i
+            }
+            return factorsArray
+        }
+
+        function isFactor(factor, value){
+            if (value % factor == 0){
+                return true
+            }
+            else
+                return false
+        }
+
+        function printFactors(arr){
+            document.write("Printing array of Factors<br>")
+            for (i = 0; i < arr.length; i++){
+                document.write(arr[i] + "<br>")
+            }
+            document.write("<br>")
+        }
+    
+    </script>
+    
+    <div id= "result">
+
+    </div>
+
+</body>
